@@ -1,7 +1,7 @@
 
   install.packages("RCurl")                  
   require(RCurl) 
-  dat <- read.csv(text=getURL("https://raw.githubusercontent.com/bongsongkim/genuine_BLUP/master/raw_data/dat.csv"),header=T)   
+  dat <- read.csv(text=getURL("https://raw.githubusercontent.com/bongsongkim/genuine_BLUP/master/raw_data/pheno.csv"),header=T)   
 
 ######
   phe.input = "dat.csv"
