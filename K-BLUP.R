@@ -10,8 +10,6 @@
 
  dat <- read.csv(text=getURL("https://raw.githubusercontent.com/bongsongkim/BLUP/master/raw_data/pheno.csv"),header=T)           
  x   <- model.matrix(~1 + as.factor(dat$loc)) 
-# y   <- as.matrix(dat[,3])
-
  y <- c(
     dat$phe[1:107][match(sort(dat$id[1:107]),dat$id[1:107])]  
     ,dat$phe[(107+1):(107*2)][match(sort(dat$id[1:107]),dat$id[1:107])]
