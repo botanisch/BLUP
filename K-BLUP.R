@@ -10,7 +10,19 @@
 
  dat <- read.csv(text=getURL("https://raw.githubusercontent.com/bongsongkim/BLUP/master/raw_data/pheno.csv"),header=T)           
  x   <- model.matrix(~1 + as.factor(dat$loc)) 
- y   <- as.matrix(dat[,3])   
+# y   <- as.matrix(dat[,3])
+
+ y <- c(
+    dat$phe[1:107][match(sort(dat$id[1:107]),dat$id[1:107])]  
+    ,dat$phe[(107+1):(107*2)][match(sort(dat$id[1:107]),dat$id[1:107])]
+    ,dat$phe[(107*2+1):(107*3)][match(sort(dat$id[1:107]),dat$id[1:107])]
+    ,dat$phe[(107*3+1):(107*4)][match(sort(dat$id[1:107]),dat$id[1:107])]
+    ,dat$phe[(107*4+1):(107*5)][match(sort(dat$id[1:107]),dat$id[1:107])]
+    ,dat$phe[(107*5+1):(107*6)][match(sort(dat$id[1:107]),dat$id[1:107])]
+    ,dat$phe[(107*6+1):(107*7)][match(sort(dat$id[1:107]),dat$id[1:107])]
+    ,dat$phe[(107*7+1):(107*8)][match(sort(dat$id[1:107]),dat$id[1:107])]
+ )
+
  z   <- model.matrix(~dat[,1]-1)
               
  kk  <- read.csv(text=getURL("https://raw.githubusercontent.com/bongsongkim/BLUP/master/raw_data/genomic_kinship_matrix.CSV"),row.names=1)
