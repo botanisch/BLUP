@@ -10,7 +10,7 @@
 
  dat <- read.csv(text=getURL("https://raw.githubusercontent.com/bongsongkim/BLUP/master/raw_data/pheno.csv"),header=T)           
  x   <- model.matrix(~1 + as.factor(dat$loc)) 
- y <- dat[,3]
+ y   <- as.matrix(dat[,3])
  z   <- model.matrix(~dat[,1]-1)
               
  kk  <- read.csv(text=getURL("https://raw.githubusercontent.com/bongsongkim/BLUP/master/raw_data/genomic_kinship_matrix.CSV"),row.names=1)
