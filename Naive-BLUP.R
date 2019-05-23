@@ -4,7 +4,6 @@
   dat <- read.csv(text=getURL("https://raw.githubusercontent.com/bongsongkim/genuine_BLUP/master/raw_data/pheno.csv"),header=T)   
 
 ######
-  phe.input = "dat.csv"
   phe.var   = "phe"
   ran.var   = "id"
   fix.var   = "loc"
@@ -14,7 +13,6 @@
   typ <- 0
   id  <- 0  
   rel <- 0
-  dat <- read.csv(phe.input, header=T)  
 
   if (phe.var %in% colnames(dat)){
       cat("OpenBLUP> Phenotype: ")
