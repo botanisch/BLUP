@@ -1,0 +1,29 @@
+
+#### For reviewers 
+
+#### First, run the code in Naive-BLUP.R, then try the following code:
+
+  u_hat <- as.matrix(as.numeric(as.character(u[,2])))   # u_hat: the Naive-BLUP solution
+
+# To check that mean(u_hat) = 0, please try the following code
+
+  mean(u_hat)    # mean(u_hat) = 0
+
+# var(u) is allocated to kk.
+# To calculate var(u_hat), please try the following code:
+
+  kk2 <- (u_hat-mean(u_hat)) %*% t(u_hat-mean(u_hat)) / dim(u_hat)[1] 
+
+# To compare var(u) and var(u_hat), try the following code:
+
+  kk[1:5,1:5]
+  kk2[1:5,1:5]
+
+# You will identify that var(u) = var(u_hat) by checking that kk equals kk2.  
+# The results from the above code means that the Naive-BLUP solution satisfies u ~ N(0,var(u_hat))
+# This means that the Naive-BLUP is unbiased.
+
+# Please note that kk is based on Equation 7 (objective var(u)) in Corrigendum 
+# Please note that kk2 is based on the variance-covariance definition: var(x) = (1/n)(x-mean(x))*t(x-mean(x)) 
+
+
