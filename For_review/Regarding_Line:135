@@ -1,5 +1,16 @@
 
- install.packages("RCurl")                  
+## To Reviewers
+
+## Please compare the kk[1:5,1:5] derived from this code with the kk[1:5,1:5] derived from Naive-BLUP.R
+## The two results will be identical, which means that Line:135 is correct. 
+
+
+
+
+
+
+
+  install.packages("RCurl")                  
   require(RCurl) 
   dat <- read.csv(text=getURL("https://raw.githubusercontent.com/bongsongkim/genuine_BLUP/master/raw_data/pheno.csv"),header=T)   
 
@@ -73,12 +84,6 @@
   colnames(u) <- c("ID","Breeding values")
   u  <- data.frame(u)
 
-
-
-## To Reviewers
-
-## Please compare the kk[1:5,1:5] with the kk[1:5,1:5] derived from Naive-BLUP.R
-## The two results will be identical, which means that Line:135 is correct. 
 
 
 
