@@ -72,3 +72,14 @@
   u  <- cbind(sort(t(unique(z_h))),u)
   colnames(u) <- c("ID","Breeding values")
   u  <- data.frame(u)
+
+
+
+## To Reviewers
+
+## Please compare the kk[1:5,1:5] with the kk[1:5,1:5] derived from Naive-BLUP.R
+## The two results will be identical, which means that Line:135 is correct. 
+
+
+
+
