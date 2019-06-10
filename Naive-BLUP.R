@@ -59,7 +59,7 @@
   w2  <- t(z)%*%y                                    
 
   m.y <- as.matrix(rep(mean(y),dim(y)[1])) 
-  kk  <- (ginv(t(z) %*% z) %*% t(z) %*% (y - m.y) %*% t(y - m.y) %*% (z %*% ginv(t(z) %*% z))) / dim(y)[1]
+  kk  <- (ginv(t(z) %*% z) %*% t(z) %*% (y - m.y) %*% t(y - m.y) %*% (z %*% ginv(t(z) %*% z))) / dim(ginv(t(z) %*% z) %*% t(z) %*% (y - m.y))[1]
 
   u = ginv(t(z) %*% z) %*% t(z) %*% (y - m.y)
   b <- ginv(c11) %*% (w1 - c12 %*% u)
@@ -69,3 +69,4 @@
   u  <- data.frame(u)
 
   write.table(u, file = "naive_BLUP.csv",quote=F,sep=",",row.names=F,col.names=T)
+
