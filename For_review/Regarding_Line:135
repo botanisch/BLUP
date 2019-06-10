@@ -1,0 +1,74 @@
+
+ install.packages("RCurl")                  
+  require(RCurl) 
+  dat <- read.csv(text=getURL("https://raw.githubusercontent.com/bongsongkim/genuine_BLUP/master/raw_data/pheno.csv"),header=T)   
+
+######
+  phe.var   = "phe"
+  ran.var   = "id"
+  fix.var   = "loc"
+######
+
+  dir.create(file.path("./","Processed_data"), showWarnings=FALSE) 
+  typ <- 0
+  id  <- 0  
+  rel <- 0
+
+  if (phe.var %in% colnames(dat)){
+      cat("OpenBLUP> Phenotype: ")
+      cat(phe.var)
+      cat("\n")
+      id[1]  <- phe.var                   
+  }          
+  if (ran.var %in% colnames(dat)){       
+      cat("OpenBLUP> Random variable: ")
+      cat(ran.var)
+      cat("\n")
+      id[2]  <- ran.var 
+  }
+  if (fix.var %in% colnames(dat)){
+      cat("OpenBLUP> Fixed effect term (Categorical): ")                                   
+      cat(fix.var)                       
+      cat("\n")
+      id[3]  <- fix.var
+  }            
+
+  dat[,which(colnames(dat) == fix.var)] <-  paste("@",dat[,which(colnames(dat) == fix.var)],sep="")
+
+  write.table(as.character(dat[,which(colnames(dat) == id[3])]),"./Processed_data/env1.csv",row.names=F,col.names=F,sep=",",quote=FALSE)
+  env1 <- read.csv("./Processed_data/env1.csv",header=F)
+  env1 <- t(env1)
+  env1 <- as.factor(env1)
+
+  x   <- model.matrix(~1 + env1)
+
+  write.table(dat[,which(colnames(dat) == id[1])],"./Processed_data/y.csv",row.names=F,col.names=F,sep=",",quote=FALSE)      
+  write.table(dat[,which(colnames(dat) == id[2])],"./Processed_data/Z_h.csv",row.names=F,col.names=F,sep=",",quote=FALSE)
+  z_h <- read.csv("./Processed_data/Z_h.csv",header=F) 
+  z <- model.matrix(~as.factor(t(z_h))-1) 
+  y  <- as.matrix(read.csv("./Processed_data/y.csv",header=F)) 
+ 
+
+  library(MASS)
+  print(Sys.time()) 
+  c11 <- t(x)%*%x
+  c12 <- t(x)%*%z
+  c21 <- t(c12)
+  c22 <- t(z)%*%z
+  w1  <- t(x)%*%y                           
+  w2  <- t(z)%*%y                                    
+
+  m.y <- as.matrix(rep(mean(y),dim(y)[1])) 
+  kk  <- (ginv(t(z) %*% z) %*% t(z) %*% (y - m.y) %*% t(y - m.y) %*% (z %*% ginv(t(z) %*% z))) / dim(ginv(t(z) %*% z) %*% t(z) %*% (y - m.y))[1]
+
+  ki  <- ginv(kk)
+  c22_i <- ginv(c22)
+
+  print(kk[1:5,1:5])
+
+  u <- ginv(c22 + ki - c21 %*% ginv(c11) %*% c12) %*% (w2 - c21 %*% ginv(c11) %*% w1)
+  b <- ginv(c11) %*% (w1 - c12 %*% u)
+
+  u  <- cbind(sort(t(unique(z_h))),u)
+  colnames(u) <- c("ID","Breeding values")
+  u  <- data.frame(u)
