@@ -24,6 +24,4 @@
 # This means that the Naive-BLUP is unbiased.
 
 # Please note that kk is based on Equation 7 (objective var(u)) in Corrigendum 
-# Please note that kk2 is based on the variance-covariance definition: var(x) = (1/n)(x-mean(x))*t(x-mean(x)) 
-
-
+# Please note that kk2 is based on the variance-covariance definition: var(x,x) = (1/n)(x-mean(x))*t(x-mean(x)) 
