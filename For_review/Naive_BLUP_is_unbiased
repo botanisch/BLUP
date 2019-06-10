@@ -1,6 +1,4 @@
 
-#### For reviewers 
-
 #### First, run the code in Naive-BLUP.R, then try the following code:
 
   u_hat <- as.matrix(as.numeric(as.character(u[,2])))   # u_hat: the Naive-BLUP solution
