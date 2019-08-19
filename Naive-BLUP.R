@@ -62,7 +62,6 @@
   kk  <- (ginv(t(z) %*% z) %*% t(z) %*% (y - m.y) %*% t(y - m.y) %*% (z %*% ginv(t(z) %*% z))) / dim(ginv(t(z) %*% z) %*% t(z) %*% (y - m.y))[1]
 
   u = ginv(t(z) %*% z) %*% t(z) %*% (y - m.y)
-  b <- ginv(c11) %*% (w1 - c12 %*% u)
 
   u  <- cbind(sort(t(unique(z_h))),u)
   colnames(u) <- c("ID","Breeding values")
